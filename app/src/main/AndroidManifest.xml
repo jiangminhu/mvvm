@@ -16,21 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RecyclerViewActivity">
+        <activity android:name=".activity.RecyclerViewActivity"/>
+        <activity android:name=".activity.ThreeActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".ThreeActivity" />
         <activity android:name=".weight.SecendActivity" />
-        <activity android:name=".weight.FirstActivity"></activity>
+        <activity android:name=".weight.FirstActivity"/>
         <activity android:name=".base.BaseTitleActivity" />
-        <activity android:name=".ConstraintlayoutActivity"></activity>
+        <activity android:name=".activity.ConstraintlayoutActivity"/>
         <activity android:name=".weight.SecondActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
 
         </activity>
 

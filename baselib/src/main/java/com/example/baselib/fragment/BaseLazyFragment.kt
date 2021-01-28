@@ -1,18 +1,19 @@
-package com.example.weightdemo.base
+package com.example.baselib.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.baselib.viewmodel.BaseViewModel
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+abstract class BaseLazyFragment<VB : BaseViewModel, DB : ViewDataBinding> :
+    BaseDBFragment<VB, DB>() {
     var isVisibility = false //判断该fragment是否可见
     var isViewCreate = false
     var isAutoRefresh = false//是否自动刷新数据
-
-    lateinit var viewBinding: VB
 
 
     override fun onCreateView(
@@ -20,15 +21,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = getViewBind(inflater, container)
         isViewCreate = true
-        return viewBinding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
-
-    /**
-     * 获取viewbind
-     */
-    abstract fun getViewBind(inflater: LayoutInflater, container: ViewGroup?): VB
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

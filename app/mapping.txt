@@ -7,22 +7,22 @@ BaseRecyclerAdpater -> a:
     java.util.List mData -> e
     android.content.Context mContext -> d
     7:12:void <init>(android.content.Context,java.util.List) -> <init>
-    void conver(BaseViewHolder,java.lang.Object,int) -> a
+    void conver(com.example.baselib.adapter.BaseViewHolder,java.lang.Object,int) -> a
     androidx.viewbinding.ViewBinding getViewBinding(android.view.LayoutInflater,android.view.ViewGroup,int) -> a
-    24:25:void onBindViewHolder(BaseViewHolder,int) -> a
+    24:25:void onBindViewHolder(com.example.baselib.adapter.BaseViewHolder,int) -> a
     7:7:void onBindViewHolder(androidx.recyclerview.widget.RecyclerView$ViewHolder,int) -> b
     7:7:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> b
-    15:16:BaseViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> b
+    15:16:com.example.baselib.adapter.BaseViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> b
     20:20:int getItemCount() -> b
-BaseViewHolder -> b:
+com.example.baselib.adapter.BaseViewHolder -> b:
     androidx.viewbinding.ViewBinding viewBinding -> u
     4:4:void <init>(androidx.viewbinding.ViewBinding) -> <init>
     4:4:androidx.viewbinding.ViewBinding getViewBinding() -> C
 TestBaseAdpater -> c:
     8:9:void <init>(android.content.Context,java.util.List) -> <init>
-    8:8:void conver(BaseViewHolder,java.lang.Object,int) -> a
+    8:8:void conver(com.example.baselib.adapter.BaseViewHolder,java.lang.Object,int) -> a
     8:8:androidx.viewbinding.ViewBinding getViewBinding(android.view.LayoutInflater,android.view.ViewGroup,int) -> a
-    13:19:void conver(BaseViewHolder,java.lang.String,int) -> a
+    13:19:void conver(com.example.baselib.adapter.BaseViewHolder,java.lang.String,int) -> a
     26:26:com.example.weightdemo.databinding.AdpaterTvBinding getViewBinding(android.view.LayoutInflater,android.view.ViewGroup,int) -> a
 android.support.v4.app.RemoteActionCompatParcelizer -> android.support.v4.app.RemoteActionCompatParcelizer:
     11:11:void <init>() -> <init>
@@ -11277,7 +11277,7 @@ com.alibaba.sdk.android.utils.e -> e.a.a.a.a.e:
 com.example.weightdemo.BuildConfig -> e.b.a.a:
     boolean DEBUG -> a
     7:7:void <clinit>() -> <clinit>
-com.example.weightdemo.ConstraintlayoutActivity -> com.example.weightdemo.ConstraintlayoutActivity:
+com.example.weightdemo.activity.ConstraintlayoutActivity -> com.example.weightdemo.activity.ConstraintlayoutActivity:
     7:8:void <init>() -> <init>
     7:7:androidx.viewbinding.ViewBinding getActivityBinding() -> o
     11:11:com.example.weightdemo.databinding.ActivityConstraintlayoutBinding getActivityBinding() -> o
@@ -11285,7 +11285,7 @@ com.example.weightdemo.ConstraintlayoutActivity -> com.example.weightdemo.Constr
     24:24:com.example.weightdemo.presenter.LifPresenter getPresenter() -> q
     17:17:void initData() -> s
     20:21:void initView() -> v
-com.example.weightdemo.MainActivity -> com.example.weightdemo.MainActivity:
+com.example.weightdemo.activity.MainActivity -> com.example.weightdemo.activity.MainActivity:
     java.util.ArrayList mList -> y
     TestBaseAdpater mAdpater -> z
     23:24:void <clinit>() -> <clinit>
@@ -11296,11 +11296,11 @@ com.example.weightdemo.MainActivity -> com.example.weightdemo.MainActivity:
     35:35:com.example.weightdemo.presenter.BasePresenter getPresenter() -> q
     41:41:void initData() -> s
     44:51:void initView() -> v
-com.example.weightdemo.MainActivity$Companion -> com.example.weightdemo.MainActivity$a:
+com.example.weightdemo.activity.MainActivity$Companion -> com.example.weightdemo.activity.MainActivity$a:
     22:22:void <init>() -> <init>
     22:22:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-com.example.weightdemo.MainActivity$initView$1 -> com.example.weightdemo.MainActivity$b:
-    com.example.weightdemo.MainActivity$initView$1 INSTANCE -> a
+com.example.weightdemo.activity.MainActivity$initView$1 -> com.example.weightdemo.activity.MainActivity$b:
+    com.example.weightdemo.activity.MainActivity$initView$1 INSTANCE -> a
     54:54:void onClick(android.view.View) -> onClick
 com.example.weightdemo.MyApplocation -> com.example.weightdemo.MyApplocation:
     11:11:void <init>() -> <init>
@@ -11314,7 +11314,7 @@ com.example.weightdemo.MyApplocation$initSophix$1 -> com.example.weightdemo.MyAp
     com.example.weightdemo.MyApplocation$initSophix$1 INSTANCE -> a
     37:44:void onLoad(int,int,java.lang.String,int) -> onLoad
 com.example.weightdemo.R$id -> e.b.a.b:
-com.example.weightdemo.ThreeActivity -> com.example.weightdemo.ThreeActivity:
+com.example.weightdemo.activity.ThreeActivity -> com.example.weightdemo.activity.ThreeActivity:
     13:13:void <init>() -> <init>
     13:13:androidx.viewbinding.ViewBinding getActivityBinding() -> o
     17:17:com.example.weightdemo.databinding.ActivityThreeBinding getActivityBinding() -> o
@@ -11323,8 +11323,8 @@ com.example.weightdemo.ThreeActivity -> com.example.weightdemo.ThreeActivity:
     21:21:com.example.weightdemo.presenter.LifPresenter getPresenter() -> q
     26:26:void initData() -> s
     29:36:void initView() -> v
-com.example.weightdemo.ThreeActivity$initView$1 -> com.example.weightdemo.ThreeActivity$a:
-    com.example.weightdemo.ThreeActivity this$0 -> a
+com.example.weightdemo.activity.ThreeActivity$initView$1 -> com.example.weightdemo.activity.ThreeActivity$a:
+    com.example.weightdemo.activity.ThreeActivity this$0 -> a
     30:35:void onClick(android.view.View) -> onClick
 com.example.weightdemo.base.BaseTitleActivity -> com.example.weightdemo.base.BaseTitleActivity:
     com.example.weightdemo.presenter.BasePresenter mPresenter -> w

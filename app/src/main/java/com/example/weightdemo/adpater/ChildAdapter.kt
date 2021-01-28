@@ -1,14 +1,14 @@
 package com.example.weightdemo.adpater
 
-import BaseRecyclerAdpater
-import BaseViewHolder
+import com.example.baselib.adapter.BaseRecyclerAdapter
+import com.example.baselib.adapter.BaseViewHolder
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.weightdemo.databinding.ItemChildBinding
 
 class ChildAdapter(context: Context, list: List<String>) :
-    BaseRecyclerAdpater<String, ItemChildBinding>(context, list) {
+    BaseRecyclerAdapter<String, ItemChildBinding>(context, list) {
     override fun getViewBinding(
         inflater: LayoutInflater,
         parent: ViewGroup,

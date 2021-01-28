@@ -1,3 +1,5 @@
+package com.example.baselib.adapter
+
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 

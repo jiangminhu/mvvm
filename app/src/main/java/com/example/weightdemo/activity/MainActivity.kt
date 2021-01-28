@@ -1,4 +1,4 @@
-package com.example.weightdemo
+package com.example.weightdemo.activity
 
 import TestBaseAdpater
 import android.content.Intent
@@ -8,12 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weightdemo.base.BaseTitleActivity
 import com.example.weightdemo.databinding.ActivityMainBinding
 import com.example.weightdemo.presenter.BasePresenter
-import kotlinx.coroutines.*
-
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 
 
 class MainActivity : BaseTitleActivity<ActivityMainBinding, BasePresenter>(), View.OnClickListener {
@@ -63,34 +57,6 @@ class MainActivity : BaseTitleActivity<ActivityMainBinding, BasePresenter>(), Vi
     }
 
 
-    private suspend fun test() {
-        flow {
-            listOf(1, 2, 3, 4, 5).forEach {
-                emit(it)
-                delay(1000)
-            }
-        }.map {
-            it + 2.0f
-        }.flowOn(Dispatchers.IO)
-            .map {
-                val a = it + 1
-                viewbind.button.text = "$it"
-                a
-            }
-            .flowOn(Dispatchers.Main).collect {
 
-            }
-
-
-    }
-
-
-    private suspend fun test1(a: Int): Int {
-        coroutineScope {
-
-        }
-        delay(20000)
-        return a + 100
-    }
 }
 

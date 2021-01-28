@@ -1,4 +1,4 @@
-package com.example.weightdemo
+package com.example.weightdemo.activity
 
 import android.util.Log
 import com.example.weightdemo.base.BaseTitleActivity

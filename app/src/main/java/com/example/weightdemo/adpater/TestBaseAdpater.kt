@@ -1,12 +1,13 @@
-import android.content.ClipData
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.baselib.adapter.BaseRecyclerAdapter
+import com.example.baselib.adapter.BaseViewHolder
 import com.example.weightdemo.databinding.AdpaterTvBinding
 
 class TestBaseAdpater(val context: Context, list: List<String>) :
-    BaseRecyclerAdpater<String, AdpaterTvBinding>(context, list) {
+    BaseRecyclerAdapter<String, AdpaterTvBinding>(context, list) {
 
 
     override fun conver(holder: BaseViewHolder<AdpaterTvBinding>, t: String, position: Int) {

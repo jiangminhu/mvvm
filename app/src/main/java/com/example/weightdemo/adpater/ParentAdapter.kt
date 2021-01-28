@@ -1,7 +1,7 @@
 package com.example.weightdemo.adpater
 
-import BaseRecyclerAdpater
-import BaseViewHolder
+import com.example.baselib.adapter.BaseRecyclerAdapter
+import com.example.baselib.adapter.BaseViewHolder
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.example.weightdemo.bean.ParentBean
 import com.example.weightdemo.databinding.ItemParentBinding
 
 class ParentAdapter(context: Context, list: List<ParentBean>) :
-    BaseRecyclerAdpater<ParentBean, ItemParentBinding>(context, list) {
+    BaseRecyclerAdapter<ParentBean, ItemParentBinding>(context, list) {
     private val map = HashMap<Int, ChildAdapter>()
 
     override fun getViewBinding(

@@ -12,7 +12,7 @@ import com.example.baselib.bean.ErrorState
 import com.example.baselib.bean.ShowProgress
 import com.example.baselib.viewmodel.BaseViewModel
 
-abstract class BaseFragment<VB : BaseViewModel, DB : ViewDataBinding> : Fragment() {
+abstract class BaseDBFragment<VB : BaseViewModel, DB : ViewDataBinding> : Fragment() {
     private lateinit var mViewModel: VB
     private lateinit var mDataBinding: DB
 

@@ -2,7 +2,7 @@ package com.example.weightdemo.weight
 
 import android.content.Intent
 import android.util.Log
-import com.example.weightdemo.ThreeActivity
+import com.example.weightdemo.activity.ThreeActivity
 import com.example.weightdemo.base.BaseTitleActivity
 import com.example.weightdemo.databinding.ActivitySecendBinding
 import com.example.weightdemo.presenter.LifPresenter

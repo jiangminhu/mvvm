@@ -7,6 +7,8 @@ import com.example.baselib.BuildConfig
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ShowProgress
 import com.example.baselib.bean.StateActionEvent
+import com.example.baselib.exception.ApiException
+import com.example.baselib.res.ApiExMsg
 import com.google.gson.JsonParseException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -27,7 +29,7 @@ typealias  Block<T> = suspend () -> T
 /**
  * 处理异常情况
  */
-typealias  Error = suspend (code: Int, message: String) -> Unit
+typealias  Error = suspend (code: Int, message: String?) -> Unit
 /**
  * 处理取消
  */
@@ -84,30 +86,33 @@ open class BaseViewModel : ViewModel() {
         }
         when (e) {
             is HttpException -> {
-                error?.invoke(e.code(), e.message())
+                error?.invoke(e.code(), ApiExMsg.HTTP_ERROR)
             }
 
             is ConnectException, is UnknownHostException -> {
-
+                error?.invoke(0, ApiExMsg.CONNECT_ERROR)
             }
 
             is JsonParseException, is JSONException, is ParseException -> {
-
+                error?.invoke(0, ApiExMsg.JSON_ERROR)
             }
 
             is SocketTimeoutException, is InterruptedIOException -> {
-
+                error?.invoke(0, ApiExMsg.SOCKET_ERROR)
             }
 
             is EOFException -> {
-
+                error?.invoke(0, ApiExMsg.EOF_ERROR)
             }
 
             is IllegalStateException -> {
-
+                error?.invoke(0, ApiExMsg.RUN_ERROR)
+            }
+            is ApiException -> {
+                error?.invoke(0, e.message)
             }
             else -> {
-
+                error?.invoke(0, e.message)
             }
         }
     }
