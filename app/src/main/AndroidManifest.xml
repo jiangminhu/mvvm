@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.weightdemo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 外部存储读权限，调试工具加载本地补丁需要 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".SopApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.RecyclerViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".ThreeActivity" />
+        <activity android:name=".weight.SecendActivity" />
+        <activity android:name=".weight.FirstActivity"></activity>
+        <activity android:name=".base.BaseTitleActivity" />
+        <activity android:name=".ConstraintlayoutActivity"></activity>
+        <activity android:name=".weight.SecondActivity" />
+        <activity android:name=".MainActivity">
+
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.weightdemo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="31354083" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="db4b611dfa144fddb3f79b3c535a4b2f" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCMewd6xUOR6kBxL6LfcY8UqIAQw8meXgu7xpEcedcP5h3XZ9smxC7acpSmBFKIy/Ott5u8j82Bv5nCaZjtZCYdbNSM07zyFU8EqR8Kt3sMZ5pj1azQyC9ifwAqsp8noJMh5pM8Zja9VWKZNpMnGCV6JU59EMj5E1prlqLIb45/6MlnpW/C5RQFdQ0Wg6NjKjmgBm8AKdx9Du+4n2e3hbDRjVZGSFyJ5b8dvbRmH2vtc85e+f4yfYUnfFn+nGhO+8eX2wjUWcwj2FHWo9WW+7NyLLcaQoAmPlAYPbzG8Dpzd3VpM5pnb3kdXoSGQ72ZoDM/XoJYUPcNkItJEWddvEpzAgMBAAECggEAWEkdez+r5nDkjP2WC30Pobj/uwmAlUGfeCQjoFTGHtzM1koTxXo3w9uMpgVDZWtfukYQ3uE1Exy54h+BF3gAKC/0KIkNTsqrfU9YDeEfuL0Hn0RzNkcI2IreLPdS5JGaxgxlbekC79xQed99fW1EaE431IuO8lICWmkx5muNj75qSsFxPw4oT/qlcSJkHav6YOpVtdT10QJT1i9YelbtQPeLzOXWj4aFbpE9S2Y1w7cncEriYtbKG/hpmp21V/wRPFS0EZHSjC6Bwoq8YrHeQ0XMXokOk8z0JG7hGOygcot4L+psp3/39LSMNsvR78w7u4qUo6KpQTxDThN0xKyucQKBgQDOzxNSd4HcYI93z9/yJeM2X6Usek+N7UAVHfLroaAUruZcT0pD8NL3PBZTvwsvmPCvgbnSkTKsgok78XDEfux8Q5PDAkNwEJ9kRRav7YsD49TqM/qFVOu0uslDTYEy0rQ6B9LIcm8RFGDrj+4//7ulh/0zekFLDEfGeaHEZxJTCQKBgQCt5R3wg7kLr9e4RVdmrVyke81prgg6xYjMpBB4Xt8HuJXHiQd8JNxTm0bzR6E/NVkQrw3+iB5H9DagjZNdhEiLWmhGXBXy3t/oweYpFxZRbtrG2YfJtZ9004NYU/lqslWigA+CzWxci2onFCftEsDPk+ZYO6DX0bBETs6DAjDkmwKBgD9N+c8rj8/Cqwf01MtNt7BkNK5ZvlJmhlAwe7SPI+5Q32jwSH5lkF5nwTnfZ/Ao87v1jMkc8xMFXjbAIFG1vHQJR4jQ/42lOPU7hMdTglMtgXYzdQMtTH1lE8iLR/ojr1F4JZiAFul2gHh69WYXxPvVlbcVPDlZx/rELrVtC5npAoGAeKhOItEy90H2exxZ7ZuCeXqRZ69idG0VY3C/INYrCG9yNbYFpITq/3PxQeJEptf8SZA9NIv7/s8bjEFPrAaaU17SlWdVr2QnlpfbfE1RpgU19d1/01ybHHOaYhI6MGc29f7HRGoGsxvk9uKMZXmqoR0tKbGOA9Gx7WOE9O/zPtsCgYAoA52mIJDBqCojx5lVFkQmum3NULgc821kh2pecu1K9GfoGCDTjX4H48T3t1v66JWBUKbvIU5MEiaHddyhzPfspaX6ahdRziXZZK4ZS9d4LpsJv+XwRrkrr2mLuVpEcl3ZAdWLMi4EPErzHdT0+dwtopvnX257JmFX975Lu3O9JQ==" />
+    </application>
+
+</manifest>

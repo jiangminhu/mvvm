@@ -1,0 +1,3 @@
+rootProject.name='WeightDemo'
+include ':app'
+include ':baselib'
