@@ -12,6 +12,11 @@ import com.google.android.material.shape.*
  */
 object DrawableUtil {
 
+    /**
+     * 填充圆角背景图
+     * round: 圆角度
+     * color：填充颜色
+     */
     fun getRoundedFillDrawable(mContext: Context, round: Int, color: String): Drawable {
         val shapeAppearanceModel =
             ShapeAppearanceModel.builder().setAllCorners(RoundedCornerTreatment())
@@ -24,11 +29,17 @@ object DrawableUtil {
         }
     }
 
+    /**
+     * 非填充圆角背景图
+     * round: 圆角度
+     * color：填充颜色
+     * lineWidth：线粗细
+     */
     fun getRoundedStrokeDrawable(
         mContext: Context,
         round: Int,
         color: String,
-        width: Int
+        lineWidth: Int
     ): Drawable {
         val shapeAppearanceModel =
             ShapeAppearanceModel.builder().setAllCorners(RoundedCornerTreatment())
@@ -38,11 +49,18 @@ object DrawableUtil {
         return MaterialShapeDrawable(shapeAppearanceModel).apply {
             setStrokeTint(Color.parseColor(color))
             paintStyle = Paint.Style.STROKE
-            strokeWidth = width.dp(mContext)
+            strokeWidth = lineWidth.dp(mContext)
         }
     }
 
 
+    /**
+     * 混合背景图
+     * round: 圆角度
+     * fillColor：填充颜色
+     * strokeColor：边线颜色
+     * mStrokeWidth：边线粗细
+     */
     fun getRoundedDrawable(
         mContext: Context,
         round: Int,
@@ -64,6 +82,11 @@ object DrawableUtil {
     }
 
 
+    /**
+     * 按钮背景选择图
+     * drawableClick：按下时背景图
+     * drawableNormal：正常背景图
+     */
     fun getSelectorDrawable(drawableClick: Drawable, drawableNormal: Drawable): Drawable {
         val stateDrawable = StateListDrawable()
         stateDrawable.addState(intArrayOf(android.R.attr.state_pressed), drawableClick)
