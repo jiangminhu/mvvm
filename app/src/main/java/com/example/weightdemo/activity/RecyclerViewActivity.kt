@@ -42,4 +42,5 @@ class RecyclerViewActivity : AppCompatActivity() {
         mAdapter.notifyDataSetChanged()
 
     }
+
 }

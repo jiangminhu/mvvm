@@ -2,7 +2,7 @@ package com.example.weightdemo
 
 
 fun main() {
-
+    System.out.println( 2  in  1  until  3)
 
 }
 
@@ -14,6 +14,8 @@ class A {
 
 
     }
+
+
 }
 
 

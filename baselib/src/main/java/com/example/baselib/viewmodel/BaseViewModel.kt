@@ -7,6 +7,7 @@ import com.example.baselib.BuildConfig
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ShowProgress
 import com.example.baselib.bean.StateActionEvent
+import com.example.baselib.exception.ApiCode
 import com.example.baselib.exception.ApiException
 import com.example.baselib.res.ApiExMsg
 import com.google.gson.JsonParseException
@@ -35,16 +36,18 @@ typealias  Error = suspend (code: Int, message: String?) -> Unit
  */
 typealias  Cancel = suspend (e: Exception) -> Unit
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     //观察网络状态
     val mStateLiveData = MutableLiveData<StateActionEvent>()
+
 
     /**
      * block： 函数体
      * onError ： 错误函数体
      * isShowProcess：是否显示进度
-     * cancel：是否取消
-     */
+     * cancel：取消操作
+     *
+     * */
     open fun launch(
         block: Block<Unit>,
         onError: Error? = null,
@@ -90,29 +93,29 @@ open class BaseViewModel : ViewModel() {
             }
 
             is ConnectException, is UnknownHostException -> {
-                error?.invoke(0, ApiExMsg.CONNECT_ERROR)
+                error?.invoke(ApiCode.ERROR_CODE, ApiExMsg.CONNECT_ERROR)
             }
 
             is JsonParseException, is JSONException, is ParseException -> {
-                error?.invoke(0, ApiExMsg.JSON_ERROR)
+                error?.invoke(ApiCode.ERROR_CODE, ApiExMsg.JSON_ERROR)
             }
 
             is SocketTimeoutException, is InterruptedIOException -> {
-                error?.invoke(0, ApiExMsg.SOCKET_ERROR)
+                error?.invoke(ApiCode.ERROR_CODE, ApiExMsg.SOCKET_ERROR)
             }
 
             is EOFException -> {
-                error?.invoke(0, ApiExMsg.EOF_ERROR)
+                error?.invoke(ApiCode.ERROR_CODE, ApiExMsg.EOF_ERROR)
             }
 
             is IllegalStateException -> {
-                error?.invoke(0, ApiExMsg.RUN_ERROR)
+                error?.invoke(ApiCode.ERROR_CODE, ApiExMsg.RUN_ERROR)
             }
             is ApiException -> {
-                error?.invoke(0, e.message)
+                error?.invoke(ApiCode.ERROR_CODE, e.message)
             }
             else -> {
-                error?.invoke(0, e.message)
+                error?.invoke(ApiCode.ERROR_CODE, e.message)
             }
         }
     }

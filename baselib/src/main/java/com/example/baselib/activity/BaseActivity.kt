@@ -3,15 +3,19 @@ package com.example.baselib.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ErrorState
 import com.example.baselib.bean.ShowProgress
+import com.example.baselib.repository.BaseRepository
 import com.example.baselib.viewmodel.BaseViewModel
+import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<VB : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
-    private lateinit var mViewModel: VB
-    private lateinit var mDataBinding: DB
+    protected lateinit var mViewModel: VB
+    protected lateinit var mDataBinding: DB
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +23,7 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewDataBinding> : AppCompa
         mDataBinding = getDataBinding()
         mViewModel = getViewModel()
 
-        mViewModel.mStateLiveData.observe(this){
+        mViewModel.mStateLiveData.observe(this) {
             when (it) {
                 is ShowProgress -> {
                     showProgress(null)
@@ -35,10 +39,16 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewDataBinding> : AppCompa
                 }
             }
         }
+
+
     }
 
 
-    abstract fun getViewModel(): VB
+    private fun getViewModel(): VB {
+        val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
+        return ViewModelProvider(this)[types[0] as Class<VB>]
+    }
+
 
     abstract fun getDataBinding(): DB
 
