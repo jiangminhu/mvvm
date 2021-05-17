@@ -17,7 +17,8 @@ class MvvmViewModel : BaseViewModelImp<MvvmRepository>() {
             }
         }, { code, message ->
             Log.e("TAG", "$code------------->${message}")
-        })
+        }, true)
+
 
     }
 }

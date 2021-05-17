@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.baselib.util.getViewBinding
 
 abstract class BaseRecyclerAdapter<T, V : ViewBinding> constructor(
     content: Context,
@@ -15,7 +16,7 @@ abstract class BaseRecyclerAdapter<T, V : ViewBinding> constructor(
     lateinit var viewHolder: BaseViewHolder<V>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<V> {
         val inflater = LayoutInflater.from(mContext)
-        return BaseViewHolder(getViewBinding(inflater, parent, viewType))
+        return BaseViewHolder(getViewBinding(inflater, parent))
     }
 
     override fun getItemCount(): Int {
@@ -23,11 +24,9 @@ abstract class BaseRecyclerAdapter<T, V : ViewBinding> constructor(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<V>, position: Int) {
-        conver(holder, mData[position], position)
+        convert(holder, mData[position], position)
     }
 
 
-    abstract fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): V
-
-    abstract fun conver(holder: BaseViewHolder<V>, t: T, position: Int)
+    abstract fun convert(holder: BaseViewHolder<V>, t: T, position: Int)
 }

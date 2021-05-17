@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.jiangminhu'
 
 android {
@@ -38,7 +37,7 @@ android {
     }
 
 
-    dataBinding {
+    viewBinding  {
         enabled = true
     }
     compileOptions {
@@ -64,7 +63,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:2.9.0"
     //noinspection GradleDependency
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
     api "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
     api 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
@@ -74,6 +73,7 @@ dependencies {
     api 'com.google.android.material:material:1.3.0-rc01'
     api 'androidx.recyclerview:recyclerview:1.2.0-beta01'
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 
 }
  

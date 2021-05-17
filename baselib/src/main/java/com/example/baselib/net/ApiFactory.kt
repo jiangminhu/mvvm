@@ -4,7 +4,9 @@ import com.example.baselib.BuildConfig
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,25 +41,28 @@ class ApiFactory {
         }
     }
 
-    private val mClient: OkHttpClient by lazy {
-        newClient()
-    }
 
     //创建retrofit
-    fun <T> create(baseUrl: String, clasz: Class<T>): T =
-        Retrofit.Builder().baseUrl(baseUrl).client(mClient)
+    fun <T> create(baseUrl: String, clasz: Class<T>, vararg interceptor: Interceptor): T =
+        Retrofit.Builder().baseUrl(baseUrl).client(newClient(*interceptor))
             .addConverterFactory(GsonConverterFactory.create(Gson()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).build().create(clasz)
 
     //配置OKHttp
-    private fun newClient(): OkHttpClient = OkHttpClient.Builder().apply {
-        connectTimeout(CONNECTTIMEOUT, TimeUnit.SECONDS)
-        readTimeout(READTIMEOUT, TimeUnit.SECONDS)
-        writeTimeout(WRITETIMEOUT, TimeUnit.SECONDS)
-        if (BuildConfig.DEBUG) {
-            addInterceptor(mLoggingInterceptor)
-        }
-    }.build()
+    private fun newClient(vararg interceptors: Interceptor): OkHttpClient =
+        OkHttpClient.Builder().apply {
+            connectTimeout(CONNECTTIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READTIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITETIMEOUT, TimeUnit.SECONDS)
+            interceptors.forEach {
+                addInterceptor(it)
+            }
+            if (BuildConfig.DEBUG) {
+                addInterceptor(mLoggingInterceptor)
+            }
+        }.build()
 
-
+    fun test() {
+        val requestBody = "".toRequestBody("application/json;charset=utf-8".toMediaType())
+    }
 }

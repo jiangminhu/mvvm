@@ -3,7 +3,7 @@ package com.example.baselib.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.baselib.BuildConfig
+import androidx.viewbinding.BuildConfig
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ShowProgress
 import com.example.baselib.bean.StateActionEvent

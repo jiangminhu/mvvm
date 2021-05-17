@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_first.*
 import java.util.regex.Pattern
 
 class FirstActivity : BaseTitleActivity<ActivityFirstBinding, LifPresenter>() {
-    var inTest: String = ""
+    var inTest: String? = ""
 
     override fun getActivityBinding(): ActivityFirstBinding {
         return ActivityFirstBinding.inflate(layoutInflater)

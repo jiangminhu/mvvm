@@ -2,27 +2,22 @@ package com.example.baselib.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
+import androidx.viewbinding.ViewBinding
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ErrorState
 import com.example.baselib.bean.ShowProgress
-import com.example.baselib.repository.BaseRepository
 import com.example.baselib.viewmodel.BaseViewModel
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseActivity<VB : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatActivity() {
     protected lateinit var mViewModel: VB
-    protected lateinit var mDataBinding: DB
-
+    protected lateinit var mViewBinding: DB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mDataBinding = getDataBinding()
         mViewModel = getViewModel()
-
         mViewModel.mStateLiveData.observe(this) {
             when (it) {
                 is ShowProgress -> {
@@ -46,11 +41,15 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewDataBinding> : AppCompa
 
     private fun getViewModel(): VB {
         val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        return ViewModelProvider(this)[types[0] as Class<VB>]
+        return ViewModelProvider.AndroidViewModelFactory(application).create(types[0] as Class<VB>)
     }
 
 
-    abstract fun getDataBinding(): DB
+//    abstract fun getViewBinding(
+//        layoutInflater: LayoutInflater,
+//        parent: ViewGroup,
+//        isAttach: Boolean
+//    ): DB
 
     /**
      * 加载对话框

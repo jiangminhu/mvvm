@@ -1,25 +1,26 @@
 package com.example.weightdemo.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.example.baselib.activity.BaseActivity
-import com.example.weightdemo.R
 import com.example.weightdemo.databinding.ActivityMvvmBinding
 import com.example.weightdemo.viewmodel.MvvmViewModel
+import com.example.weightdemo.weight.dialog.LoadingDialog
 
 class MvvmActivity : BaseActivity<MvvmViewModel, ActivityMvvmBinding>() {
+    private var loadingDialog: LoadingDialog? = null
 
-
-    override fun getDataBinding(): ActivityMvvmBinding {
-        return ActivityMvvmBinding.inflate(layoutInflater)
-    }
 
     override fun showProgress(text: String?) {
-
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(this)
+        }
+        loadingDialog?.show()
     }
 
     override fun dismissProgress() {
-
+        loadingDialog?.let {
+            if (it.isShowing) it.dismiss()
+        }
     }
 
     override fun errorState(message: String?) {
@@ -34,4 +35,6 @@ class MvvmActivity : BaseActivity<MvvmViewModel, ActivityMvvmBinding>() {
     private fun initView() {
         mViewModel.a()
     }
+
+
 }
