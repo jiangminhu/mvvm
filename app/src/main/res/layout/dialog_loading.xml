@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:indicatorColor="#ff0000"
-                app:indicatorName="BallSpinFadeLoaderIndicator" />
+                />
 
         </RelativeLayout>
 

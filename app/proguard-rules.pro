@@ -28,7 +28,7 @@
 -keep class com.taobao.sophix.**{*;}
 -keep class com.ta.utdid2.device.**{*;}
 -dontwarn com.alibaba.sdk.android.utils.**
--keepclassmembers class com.example.weightdemo.MyApplocation {
+-keepclassmembers class com.example.weightdemo.MyApplication {
     public <init>();
 }
 #防止inline

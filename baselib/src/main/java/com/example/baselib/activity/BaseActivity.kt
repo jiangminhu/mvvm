@@ -44,6 +44,10 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
         return ViewModelProvider.AndroidViewModelFactory(application).create(types[0] as Class<VB>)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissProgress()
+    }
 
 //    abstract fun getViewBinding(
 //        layoutInflater: LayoutInflater,

@@ -1,12 +1,10 @@
 package com.example.weightdemo.activity
 
-import android.os.Bundle
-import com.example.baselib.activity.BaseActivity
 import com.example.weightdemo.databinding.ActivityMvvmBinding
 import com.example.weightdemo.viewmodel.MvvmViewModel
 import com.example.weightdemo.weight.dialog.LoadingDialog
 
-class MvvmActivity : BaseActivity<MvvmViewModel, ActivityMvvmBinding>() {
+class MvvmActivity : BaseVBTitleActivity<MvvmViewModel, ActivityMvvmBinding>() {
     private var loadingDialog: LoadingDialog? = null
 
 
@@ -27,12 +25,8 @@ class MvvmActivity : BaseActivity<MvvmViewModel, ActivityMvvmBinding>() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
-    }
 
-    private fun initView() {
+    override fun initView() {
         mViewModel.a()
     }
 

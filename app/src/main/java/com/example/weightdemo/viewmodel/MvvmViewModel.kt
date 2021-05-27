@@ -6,19 +6,17 @@ import com.example.weightdemo.repository.MvvmRepository
 import kotlinx.coroutines.flow.collect
 
 class MvvmViewModel : BaseViewModelImp<MvvmRepository>() {
-    override fun getRepository(): MvvmRepository {
-        return MvvmRepository()
-    }
+
 
     fun a() {
         launch({
             mRepository.test().collect {
-                Log.e("TAG", "------------->${it}")
+                Log.e("TAG", "${it.code}------------->${it.data}")
             }
         }, { code, message ->
             Log.e("TAG", "$code------------->${message}")
         }, true)
-
+        Log.e("tga"," --------------------> ")
 
     }
 }

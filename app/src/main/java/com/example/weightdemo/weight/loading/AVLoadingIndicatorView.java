@@ -103,9 +103,9 @@ public class AVLoadingIndicatorView extends View {
         mMaxWidth = a.getDimensionPixelSize(R.styleable.AVLoadingIndicatorView_maxWidth, mMaxWidth);
         mMinHeight = a.getDimensionPixelSize(R.styleable.AVLoadingIndicatorView_minHeight, mMinHeight);
         mMaxHeight = a.getDimensionPixelSize(R.styleable.AVLoadingIndicatorView_maxHeight, mMaxHeight);
-        String indicatorName=a.getString(R.styleable.AVLoadingIndicatorView_indicatorName);
+//        String indicatorName=a.getString(R.styleable.AVLoadingIndicatorView_indicatorName);
         mIndicatorColor=a.getColor(R.styleable.AVLoadingIndicatorView_indicatorColor, Color.WHITE);
-        setIndicator(indicatorName);
+//        setIndicator(indicatorName);
         if (mIndicator==null){
             setIndicator(DEFAULT_INDICATOR);
         }

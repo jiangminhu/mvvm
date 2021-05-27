@@ -16,14 +16,14 @@ class SopApplication : SophixApplication() {
 
     // 此处SophixEntry应指定真正的Application，并且保证RealApplicationStub类名不被混淆。
     @Keep
-    @SophixEntry(MyApplocation::class)
+    @SophixEntry(MyApplication::class)
     internal class RealApplicationStub
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         //         如果需要使用MultiDex，需要在此处调用。
          MultiDex.install(this);
-        initSophix()
+//        initSophix()
     }
 
     private fun initSophix() {
