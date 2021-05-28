@@ -1,15 +1,13 @@
-package com.example.weightdemo.weight
+package com.example.weightdemo.activity
 
 import android.content.Intent
 import android.text.InputFilter
-import android.text.Spanned
 import android.util.Log
 import android.widget.EditText
 import com.example.weightdemo.base.BaseTitleActivity
 import com.example.weightdemo.databinding.ActivityFirstBinding
 import com.example.weightdemo.presenter.LifPresenter
 import kotlinx.android.synthetic.main.activity_first.*
-import java.util.regex.Pattern
 
 class FirstActivity : BaseTitleActivity<ActivityFirstBinding, LifPresenter>() {
     var inTest: String? = ""

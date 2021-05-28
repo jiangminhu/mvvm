@@ -48,9 +48,9 @@ abstract class BaseTitleActivity<VB : ViewBinding, P : BasePresenter> : AppCompa
 
     fun setTitleVis(isVis: Boolean) {
         if (isVis) {
-            mViewbind.groupTitle.visibility = View.VISIBLE
+            mViewbind.rlTitle.visibility = View.VISIBLE
         } else {
-            mViewbind.groupTitle.visibility = View.GONE
+            mViewbind.rlTitle.visibility = View.GONE
         }
     }
 

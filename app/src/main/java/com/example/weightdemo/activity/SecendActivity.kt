@@ -1,8 +1,7 @@
-package com.example.weightdemo.weight
+package com.example.weightdemo.activity
 
 import android.content.Intent
 import android.util.Log
-import com.example.weightdemo.activity.ThreeActivity
 import com.example.weightdemo.base.BaseTitleActivity
 import com.example.weightdemo.databinding.ActivitySecendBinding
 import com.example.weightdemo.presenter.LifPresenter

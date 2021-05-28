@@ -1,7 +1,7 @@
-package com.example.weightdemo.weight
+package com.example.weightdemo.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.weightdemo.R
 
 class SecondActivity : AppCompatActivity() {

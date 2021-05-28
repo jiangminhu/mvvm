@@ -11415,7 +11415,7 @@ com.example.weightdemo.presenter.BasePresenter -> com.example.weightdemo.present
 com.example.weightdemo.presenter.LifPresenter -> com.example.weightdemo.presenter.LifPresenter:
     6:6:void <init>() -> <init>
     10:12:void onCreate() -> onCreate
-com.example.weightdemo.weight.FirstActivity -> com.example.weightdemo.weight.FirstActivity:
+com.example.weightdemo.activity.FirstActivity -> com.example.weightdemo.activity.FirstActivity:
     java.util.HashMap _$_findViewCache -> z
     java.lang.String inTest -> y
     14:15:void <init>() -> <init>
@@ -11430,14 +11430,14 @@ com.example.weightdemo.weight.FirstActivity -> com.example.weightdemo.weight.Fir
     22:22:com.example.weightdemo.presenter.LifPresenter getPresenter() -> q
     27:27:void initData() -> s
     30:35:void initView() -> v
-com.example.weightdemo.weight.FirstActivity$initView$1 -> com.example.weightdemo.weight.FirstActivity$a:
-    com.example.weightdemo.weight.FirstActivity this$0 -> a
+com.example.weightdemo.activity.FirstActivity$initView$1 -> com.example.weightdemo.activity.FirstActivity$a:
+    com.example.weightdemo.activity.FirstActivity this$0 -> a
     31:33:void onClick(android.view.View) -> onClick
-com.example.weightdemo.weight.FirstActivity$setEditTextInhibitInputSpeChat$a$1 -> com.example.weightdemo.weight.FirstActivity$b:
-    com.example.weightdemo.weight.FirstActivity$setEditTextInhibitInputSpeChat$a$1 INSTANCE -> a
+com.example.weightdemo.activity.FirstActivity$setEditTextInhibitInputSpeChat$a$1 -> com.example.weightdemo.activity.FirstActivity$b:
+    com.example.weightdemo.activity.FirstActivity$setEditTextInhibitInputSpeChat$a$1 INSTANCE -> a
     14:14:java.lang.CharSequence filter(java.lang.CharSequence,int,int,android.text.Spanned,int,int) -> filter
     63:63:java.lang.Void filter(java.lang.CharSequence,int,int,android.text.Spanned,int,int) -> filter
-com.example.weightdemo.weight.SecendActivity -> com.example.weightdemo.weight.SecendActivity:
+com.example.weightdemo.activity.SecendActivity -> com.example.weightdemo.activity.SecendActivity:
     10:10:void <init>() -> <init>
     10:10:androidx.viewbinding.ViewBinding getActivityBinding() -> o
     14:14:com.example.weightdemo.databinding.ActivitySecendBinding getActivityBinding() -> o
@@ -11446,13 +11446,13 @@ com.example.weightdemo.weight.SecendActivity -> com.example.weightdemo.weight.Se
     18:18:com.example.weightdemo.presenter.LifPresenter getPresenter() -> q
     22:28:void initData() -> s
     32:32:void initView() -> v
-com.example.weightdemo.weight.SecendActivity$initData$1 -> com.example.weightdemo.weight.SecendActivity$a:
-    com.example.weightdemo.weight.SecendActivity this$0 -> a
+com.example.weightdemo.activity.SecendActivity$initData$1 -> com.example.weightdemo.activity.SecendActivity$a:
+    com.example.weightdemo.activity.SecendActivity this$0 -> a
     23:27:void onClick(android.view.View) -> onClick
-com.example.weightdemo.weight.SecondActivity -> com.example.weightdemo.weight.SecondActivity:
+com.example.weightdemo.activity.SecondActivity -> com.example.weightdemo.activity.SecondActivity:
     7:7:void <init>() -> <init>
     13:15:void onCreate(android.os.Bundle) -> onCreate
-com.example.weightdemo.weight.SecondActivity$Companion -> com.example.weightdemo.weight.SecondActivity$a:
+com.example.weightdemo.activity.SecondActivity$Companion -> com.example.weightdemo.activity.SecondActivity$a:
     8:8:void <init>() -> <init>
     8:8:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
 com.ta.a.a -> e.c.a.b:

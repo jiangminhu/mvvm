@@ -6,9 +6,8 @@ import androidx.viewbinding.ViewBinding
 import com.example.baselib.activity.BaseActivity
 import com.example.baselib.util.getViewBinding
 import com.example.baselib.viewmodel.BaseViewModel
-import com.example.weightdemo.R
 import com.example.weightdemo.databinding.ActivityBaseTitleBinding
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.example.weightdemo.util.immersive
 
 abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
     BaseActivity<VB, DB>() {
@@ -16,11 +15,9 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UltimateBarX.with(this).colorRes(R.color.colorAccent).fitWindow(true).light(false)
-            .applyStatusBar()
-        UltimateBarX.get(this).light(true).applyStatusBar()
         titleBinding = ActivityBaseTitleBinding.inflate(layoutInflater)
         setContentView(titleBinding.rootView)
+        initBar()
         mViewBinding = getViewBinding(layoutInflater, titleBinding.rootView)
         titleBinding.frameMain.addView(mViewBinding?.root)
         initView()
@@ -28,6 +25,10 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
         titleBinding.ivBack.setOnClickListener {
             Toast.makeText(this, "测试点击", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun initBar() {
+        immersive(titleBinding.rlTitle,true)
     }
 
     override fun showProgress(text: String?) {
