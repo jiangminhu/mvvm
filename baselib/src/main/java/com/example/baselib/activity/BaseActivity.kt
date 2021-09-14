@@ -3,11 +3,11 @@ package com.example.baselib.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ErrorState
 import com.example.baselib.bean.ShowProgress
+import com.example.baselib.bean.TokenInvalidException
 import com.example.baselib.viewmodel.BaseViewModel
 import java.lang.reflect.ParameterizedType
 
@@ -31,6 +31,9 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
                     it.message?.apply {
                         errorState(this)
                     }
+                }
+                is TokenInvalidException -> {
+                    tokenInvalidException()
                 }
             }
         }
@@ -69,4 +72,6 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
      * 处理带消息的错误
      */
     abstract fun errorState(message: String?)
+
+    abstract fun tokenInvalidException()
 }

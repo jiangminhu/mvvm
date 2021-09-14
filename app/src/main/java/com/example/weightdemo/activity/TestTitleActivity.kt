@@ -10,7 +10,12 @@ class TestTitleActivity : BaseVBTitleActivity<MvvmViewModel, ActivityTestTitleBi
     override fun initView() {
         mViewBinding.iv.setOnClickListener {
             Toast.makeText(this, "测试点击", Toast.LENGTH_SHORT).show()
+            finish()
         }
+    }
+
+    override fun getTitleContent(): String? {
+         return "测试"
     }
 
 

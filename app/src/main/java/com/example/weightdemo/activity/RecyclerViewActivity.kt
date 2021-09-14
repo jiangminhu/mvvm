@@ -1,7 +1,7 @@
 package com.example.weightdemo.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightdemo.R
@@ -27,7 +27,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
 
     private fun initData() {
-        for (i in 1..20) {
+        for (i in 1..2000) {
             val parentBean = ParentBean()
             parentBean.name = i.toString()
             val tempList = ArrayList<String>()

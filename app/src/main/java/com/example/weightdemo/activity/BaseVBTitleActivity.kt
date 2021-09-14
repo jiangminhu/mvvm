@@ -1,6 +1,7 @@
 package com.example.weightdemo.activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.example.baselib.activity.BaseActivity
@@ -19,7 +20,7 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
         setContentView(titleBinding.rootView)
         initBar()
         mViewBinding = getViewBinding(layoutInflater, titleBinding.rootView)
-        titleBinding.frameMain.addView(mViewBinding?.root)
+        titleBinding.frameMain.addView(mViewBinding.root)
         initView()
 
         titleBinding.ivBack.setOnClickListener {
@@ -28,7 +29,10 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
     }
 
     private fun initBar() {
-        immersive(titleBinding.rlTitle,true)
+        immersive(titleBinding.rlTitle, true)
+        if (getTitleContent().isNullOrEmpty()) {
+            titleBinding.rlTitle.visibility = View.GONE
+        }
     }
 
     override fun showProgress(text: String?) {
@@ -43,5 +47,15 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
 
     }
 
+    override fun tokenInvalidException() {
+
+    }
+
     abstract fun initView()
+
+
+    abstract fun getTitleContent(): String?
+
+
+
 }

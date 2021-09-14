@@ -2,25 +2,27 @@ package com.example.weightdemo
 
 
 fun main() {
-    System.out.println( 2  in  1  until  3)
+//  run()
+    val  a : Int=0
+    val  b : Int=1
 
+   println( AAAAA().javaClass.hashCode())
+   println( AAAAA().javaClass.hashCode())
 }
 
-
-class A {
-    private val mLit = ArrayList<B>()
-
-    fun setList(list: ArrayList<B>) {
-
-
+fun  run(){
+    val run:()->Unit={
+        println("Run  run  run!")
     }
-
-
+    println("---------------------->")
+    Runnable { run() }.run()
 }
 
 
-class B {
-    var name: String? = null
-
-    var age: Int = 0
+class  AAAAA{
+    var name:String? = "null"
+    var name1:String? = null
+    var name2:String? = null
 }
+
+

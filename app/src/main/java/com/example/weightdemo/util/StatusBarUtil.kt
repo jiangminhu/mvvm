@@ -15,6 +15,7 @@ import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 private const val COLOR_TRANSPARENT = 0
 
@@ -28,6 +29,16 @@ private const val COLOR_TRANSPARENT = 0
  * @param translucent 是否显示透明状态栏
  * @param darkMode 是否显示暗色状态栏文字颜色
  */
+@JvmOverloads
+fun Fragment.translucent(
+    translucent: Boolean = true,
+    darkMode: Boolean? = null
+) {
+    if (this.activity != null) {
+        requireActivity().translucent(translucent, darkMode)
+    }
+}
+
 @JvmOverloads
 fun Activity.translucent(
     translucent: Boolean = true,
@@ -45,9 +56,17 @@ fun Activity.translucent(
     }
 }
 
+
 /**
  * 使用视图的背景色作为状态栏颜色
  */
+@JvmOverloads
+fun Fragment.immersive(view: View, darkMode: Boolean? = null) {
+    if (this.activity != null) {
+        requireActivity().immersive(view, darkMode)
+    }
+}
+
 @JvmOverloads
 fun Activity.immersive(view: View, darkMode: Boolean? = null) {
     val background = view.background
@@ -64,6 +83,14 @@ fun Activity.immersive(view: View, darkMode: Boolean? = null) {
  * @param color 状态栏颜色, 不指定则为透明状态栏
  * @param darkMode 是否显示暗色状态栏文字颜色
  */
+@SuppressLint("ObsoleteSdkInt")
+@JvmOverloads
+fun Fragment.immersive(@ColorInt color: Int = COLOR_TRANSPARENT, darkMode: Boolean? = null) {
+    if (this.activity != null) {
+        requireActivity().immersive(color, darkMode)
+    }
+}
+
 @SuppressLint("ObsoleteSdkInt")
 @JvmOverloads
 fun Activity.immersive(@ColorInt color: Int = COLOR_TRANSPARENT, darkMode: Boolean? = null) {
@@ -110,6 +137,12 @@ fun Activity.immersive(@ColorInt color: Int = COLOR_TRANSPARENT, darkMode: Boole
 fun Activity.immersiveRes(@ColorRes color: Int, darkMode: Boolean? = null) =
     immersive(resources.getColor(color), darkMode)
 
+@JvmOverloads
+fun Fragment.immersiveRes(@ColorRes color: Int, darkMode: Boolean? = null) {
+    if (this.activity != null) {
+        requireActivity().immersiveRes(color, darkMode)
+    }
+}
 // </editor-fold>
 
 
@@ -121,6 +154,13 @@ fun Activity.immersiveRes(@ColorRes color: Int, darkMode: Boolean? = null) =
  *
  * @param darkMode 状态栏文字是否为暗色
  */
+@JvmOverloads
+fun Fragment.darkMode(darkMode: Boolean = true) {
+    if (this.activity != null) {
+        requireActivity().darkMode(darkMode)
+    }
+}
+
 @JvmOverloads
 fun Activity.darkMode(darkMode: Boolean = true) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -220,6 +260,13 @@ fun AppCompatActivity.setActionBarTransparent() {
  * @param enabled 是否显示导航栏
  */
 @JvmOverloads
+fun Fragment.setNavigationBar(enabled: Boolean = true) {
+    if (this.activity != null) {
+        requireActivity().setNavigationBar(enabled)
+    }
+}
+
+@JvmOverloads
 fun Activity.setNavigationBar(enabled: Boolean = true) {
     if (Build.VERSION.SDK_INT in 12..18) {
         if (enabled) {
@@ -244,6 +291,13 @@ fun Activity.setNavigationBar(enabled: Boolean = true) {
  *
  * @param enabled 是否全屏显示
  */
+@JvmOverloads
+fun Fragment.setFullscreen(enabled: Boolean = true) {
+    if (this.activity != null) {
+        requireActivity().setFullscreen(enabled)
+    }
+}
+
 @JvmOverloads
 fun Activity.setFullscreen(enabled: Boolean = true) {
     val systemUiVisibility = window.decorView.systemUiVisibility

@@ -7,12 +7,15 @@ import androidx.viewbinding.BuildConfig
 import com.example.baselib.bean.DismissProgress
 import com.example.baselib.bean.ShowProgress
 import com.example.baselib.bean.StateActionEvent
+import com.example.baselib.bean.TokenInvalidException
 import com.example.baselib.exception.ApiCode
 import com.example.baselib.exception.ApiException
 import com.example.baselib.res.ApiExMsg
 import com.google.gson.JsonParseException
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import retrofit2.HttpException
@@ -23,18 +26,20 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.text.ParseException
 
+typealias RequestBlock<T> = suspend () -> T
 /**
  * 处理网络请求业务体
  */
-typealias  Block<T> = suspend () -> T
+typealias  Block<T> = (T?) -> Unit
+
 /**
  * 处理异常情况
  */
-typealias  Error = suspend (code: Int, message: String?) -> Unit
+typealias  Error = (code: Int, message: String?) -> Unit
 /**
  * 处理取消
  */
-typealias  Cancel = suspend (e: Exception) -> Unit
+typealias  Cancel = (e: Exception) -> Unit
 
 abstract class BaseViewModel : ViewModel() {
     //观察网络状态
@@ -42,48 +47,57 @@ abstract class BaseViewModel : ViewModel() {
 
 
     /**
+     * requestBlock: 请求体
      * block： 函数体
+     * filterBlock：过滤体
      * onError ： 错误函数体
      * isShowProcess：是否显示进度
      * cancel：取消操作
      *
      * */
-    open fun launch(
-        block: Block<Unit>,
+    open fun <T> launch(
+        requestBlock: RequestBlock<T>,
+        block: Block<T?>,
+        filterBlock: (T?) -> Boolean = { true },
         onError: Error? = null,
         isShowProcess: Boolean = false,
         cancel: Cancel? = null
     ): Job {
         return viewModelScope.launch {
-            try {
-                if (isShowProcess) {
-                    //显示load
-                    mStateLiveData.value = ShowProgress
-                }
-                block.invoke()
-                if (isShowProcess) {
-                    //关闭弹窗
-                    mStateLiveData.value = DismissProgress
-                }
-            } catch (e: Exception) {
-                if (isShowProcess) {
-                    //关闭弹窗
-                    mStateLiveData.value = DismissProgress
-                }
-                when (e) {
-                    is CancellationException -> {
-                        cancel?.invoke(e)
+            flow {
+                emit(requestBlock.invoke())
+            }.filter {
+                filterBlock.invoke(it)
+            }.flowOn(Dispatchers.IO)
+                .onStart {
+                    if (isShowProcess) {
+                        //显示load
+                        mStateLiveData.value = ShowProgress
                     }
-                    else -> {
-                        doError(e, onError)
+                }.catch {
+                    when (it) {
+                        is CancellationException -> {
+                            cancel?.invoke(it)
+                        }
+                        is Exception -> {
+                            doError(it, onError)
+                        }
                     }
+                }.onCompletion {
+                    if (isShowProcess) {
+                        //关闭弹窗
+                        mStateLiveData.value = DismissProgress
+                    }
+                }.collect {
+                    block.invoke(it)
                 }
-            }
         }
     }
 
-
-    private suspend fun doError(e: Exception, error: Error?) {
+    private fun doError(e: Exception?, error: Error?) {
+        if (e == null) {
+            return
+        }
         if (BuildConfig.DEBUG) {
             e.printStackTrace()
         }
@@ -113,11 +127,13 @@ abstract class BaseViewModel : ViewModel() {
             }
             is ApiException -> {
                 error?.invoke(ApiCode.ERROR_CODE, e.message)
+                mStateLiveData.value = TokenInvalidException
             }
             else -> {
                 error?.invoke(ApiCode.ERROR_CODE, e.message)
             }
         }
     }
-
 }
+
+

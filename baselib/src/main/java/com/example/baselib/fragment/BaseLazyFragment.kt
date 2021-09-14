@@ -1,6 +1,7 @@
 package com.example.baselib.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,14 +24,17 @@ abstract class BaseLazyFragment<VB : BaseViewModel, DB : ViewBinding> :
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        Log.e("TGA","---------------->onViewCreated")
+        if (isViewCreate && isVisibility && isAutoRefresh) {
+            lazyData()
+        }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+        Log.e("TGA","---------------->setUserVisibleHint")
         isVisibility = isVisibleToUser
         if (isViewCreate && isVisibility && isAutoRefresh) {
             lazyData()
@@ -42,5 +46,5 @@ abstract class BaseLazyFragment<VB : BaseViewModel, DB : ViewBinding> :
      */
     abstract fun lazyData()
 
-    abstract fun initView()
+
 }

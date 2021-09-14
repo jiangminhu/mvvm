@@ -20,4 +20,5 @@ class ParentAdapter(context: Context, list: List<ParentBean>) :
             holder.viewBinding.recyclerView.adapter = adapter
         }
     }
+
 }

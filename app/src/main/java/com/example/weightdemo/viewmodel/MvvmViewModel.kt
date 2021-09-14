@@ -1,22 +1,19 @@
 package com.example.weightdemo.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.example.baselib.viewmodel.BaseViewModelImp
 import com.example.weightdemo.repository.MvvmRepository
-import kotlinx.coroutines.flow.collect
 
 class MvvmViewModel : BaseViewModelImp<MvvmRepository>() {
-
+    val livaData = MutableLiveData<String>()
 
     fun a() {
+        livaData.postValue("1")
         launch({
-            mRepository.test().collect {
-                Log.e("TAG", "${it.code}------------->${it.data}")
-            }
-        }, { code, message ->
-            Log.e("TAG", "$code------------->${message}")
-        }, true)
-        Log.e("tga"," --------------------> ")
-
+            mRepository.test()
+        }, {
+            Log.e("TGA", "------result--------->$it")
+        }, isShowProcess = true)
     }
 }
