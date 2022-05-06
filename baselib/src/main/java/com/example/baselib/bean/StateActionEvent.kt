@@ -5,7 +5,7 @@ sealed class StateActionEvent
 /**
  * 显示
  */
-object ShowProgress : StateActionEvent()
+class ShowProgress(val message: String?="") : StateActionEvent()
 
 /**
  * 隐藏

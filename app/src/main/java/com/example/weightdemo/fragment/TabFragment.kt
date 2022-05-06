@@ -8,6 +8,9 @@ import com.example.weightdemo.activity.TestTitleActivity
 import com.example.weightdemo.databinding.FragmentTabBinding
 import com.example.weightdemo.viewmodel.NoneViewModel
 
+
+
+
 class TabFragment : BaseLazyFragment<NoneViewModel, FragmentTabBinding>() {
     var page = 0
 
@@ -40,7 +43,7 @@ class TabFragment : BaseLazyFragment<NoneViewModel, FragmentTabBinding>() {
                 }
             }
         }
-        mViewBinding?.view!!.setOnClickListener {
+        mViewBinding?.view?.setOnClickListener {
             startActivity(Intent(requireActivity(),TestTitleActivity::class.java))
         }
     }
@@ -58,5 +61,8 @@ class TabFragment : BaseLazyFragment<NoneViewModel, FragmentTabBinding>() {
         super.onResume()
         Log.e("TGA","--------onResume--------->$page")
     }
+
+
+
 
 }

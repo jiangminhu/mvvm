@@ -18,5 +18,9 @@ class TestTitleActivity : BaseVBTitleActivity<MvvmViewModel, ActivityTestTitleBi
          return "测试"
     }
 
+    override fun getViewBinding(): ActivityTestTitleBinding {
+         return ActivityTestTitleBinding.inflate(layoutInflater)
+    }
+
 
 }

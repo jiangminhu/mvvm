@@ -1,6 +1,6 @@
 package com.example.baselib.bean
 
-data class HttpRespone<T>(
+data class HttpResponse<T>(
     val IsSuccess: Boolean = false,
     val Code: Int = 0,
     val Message: String? = null,

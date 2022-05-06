@@ -17,11 +17,13 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mViewBinding=getViewBinding()
         mViewModel = getViewModel()
+        setContentView(mViewBinding.root)
         mViewModel.mStateLiveData.observe(this) {
             when (it) {
                 is ShowProgress -> {
-                    showProgress(null)
+                    showProgress(it.message)
                 }
                 is DismissProgress -> {
                     dismissProgress()
@@ -38,9 +40,7 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
             }
         }
 
-
     }
-
 
     private fun getViewModel(): VB {
         val types = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
@@ -74,4 +74,6 @@ abstract class BaseActivity<VB : BaseViewModel, DB : ViewBinding> : AppCompatAct
     abstract fun errorState(message: String?)
 
     abstract fun tokenInvalidException()
+
+    abstract fun getViewBinding(): DB
 }

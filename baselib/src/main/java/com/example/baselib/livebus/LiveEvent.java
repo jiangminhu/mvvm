@@ -1,5 +1,7 @@
 package com.example.baselib.livebus;
 
+import android.util.Log;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -251,6 +253,7 @@ public class LiveEvent<T> {
         }
 
         void activeStateChange(boolean newActive) {
+            Log.e("TGA",mActive+"-------------->"+newActive);
             if (newActive == mActive) {
                 return;
             }

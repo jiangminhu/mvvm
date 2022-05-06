@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.viewbinding.BuildConfig
-import com.example.baselib.bean.DismissProgress
-import com.example.baselib.bean.ShowProgress
-import com.example.baselib.bean.StateActionEvent
-import com.example.baselib.bean.TokenInvalidException
+import com.example.baselib.bean.*
 import com.example.baselib.exception.ApiCode
 import com.example.baselib.exception.ApiException
 import com.example.baselib.res.ApiExMsg
@@ -56,12 +53,13 @@ abstract class BaseViewModel : ViewModel() {
      *
      * */
     open fun <T> launch(
-        requestBlock: RequestBlock<T>,
+        requestBlock: RequestBlock<HttpResponse<T>?>,
         block: Block<T?>,
-        filterBlock: (T?) -> Boolean = { true },
+        filterBlock: (HttpResponse<T>?) -> Boolean = { true },
         onError: Error? = null,
         isShowProcess: Boolean = false,
-        cancel: Cancel? = null
+        cancel: Cancel? = null,
+        processText: String = ""
     ): Job {
         return viewModelScope.launch {
             flow {
@@ -72,7 +70,7 @@ abstract class BaseViewModel : ViewModel() {
                 .onStart {
                     if (isShowProcess) {
                         //显示load
-                        mStateLiveData.value = ShowProgress
+                        mStateLiveData.value = ShowProgress(processText)
                     }
                 }.catch {
                     when (it) {
@@ -89,7 +87,7 @@ abstract class BaseViewModel : ViewModel() {
                         mStateLiveData.value = DismissProgress
                     }
                 }.collect {
-                    block.invoke(it)
+                    block.invoke(it?.data)
                 }
         }
     }

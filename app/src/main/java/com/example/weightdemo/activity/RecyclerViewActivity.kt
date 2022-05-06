@@ -12,13 +12,13 @@ class RecyclerViewActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private val mList = ArrayList<ParentBean>()
     private lateinit var mAdapter: ParentAdapter
-
+    private lateinit var layoutManager: LinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
         recyclerView = findViewById(R.id.recycler_view)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        layoutManager= LinearLayoutManager(this)
+        recyclerView.layoutManager =layoutManager
         mAdapter = ParentAdapter(this, mList)
         recyclerView.adapter = mAdapter
 
@@ -38,8 +38,9 @@ class RecyclerViewActivity : AppCompatActivity() {
             parentBean.list = tempList
             mList.add(parentBean)
         }
+        layoutManager.scrollToPosition(mList.size/2)
+//        mAdapter.notifyDataSetChanged()
 
-        mAdapter.notifyDataSetChanged()
 
     }
 

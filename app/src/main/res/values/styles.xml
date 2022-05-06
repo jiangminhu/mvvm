@@ -24,4 +24,9 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimAmount">0.5</item>   <!--背景色调整，1全黑，系统默认0.5-->
     </style>
+
+    <style name="roundCornerStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

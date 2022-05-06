@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import com.example.baselib.activity.BaseActivity
-import com.example.baselib.util.getViewBinding
 import com.example.baselib.viewmodel.BaseViewModel
 import com.example.weightdemo.databinding.ActivityBaseTitleBinding
 import com.example.weightdemo.util.immersive
@@ -19,7 +18,6 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
         titleBinding = ActivityBaseTitleBinding.inflate(layoutInflater)
         setContentView(titleBinding.rootView)
         initBar()
-        mViewBinding = getViewBinding(layoutInflater, titleBinding.rootView)
         titleBinding.frameMain.addView(mViewBinding.root)
         initView()
 
@@ -29,7 +27,7 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
     }
 
     private fun initBar() {
-        immersive(titleBinding.rlTitle, true)
+        immersive()
         if (getTitleContent().isNullOrEmpty()) {
             titleBinding.rlTitle.visibility = View.GONE
         }
@@ -55,6 +53,7 @@ abstract class BaseVBTitleActivity<VB : BaseViewModel, DB : ViewBinding> :
 
 
     abstract fun getTitleContent(): String?
+
 
 
 
