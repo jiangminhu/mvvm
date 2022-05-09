@@ -9,7 +9,7 @@ android {
     publishNonDefault true //让module不再按默认只构建release版本
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"

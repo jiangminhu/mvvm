@@ -1,12 +1,14 @@
-package com.example.baselib.util
+package com.lihui.qmyn.util.permission
 
-import androidx.activity.ComponentActivity
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
+import com.example.test.util.NonePermissionFragment
+import java.util.concurrent.ConcurrentHashMap
 
 class PermissionUtil private constructor() {
-
+    private val fragmentMap = ConcurrentHashMap<String, NonePermissionFragment>()
+    private val permissionLiveData = MutableLiveData<Map<String, Boolean>>()
 
     companion object {
 
@@ -18,103 +20,83 @@ class PermissionUtil private constructor() {
             return SignHolder.INSTANCE
         }
 
+
     }
 
-    /**
-     * activity注册单个permission加载器，必须在onCreate方法调用
-     * 返回一个ActivityResultLauncher对象，只是注册监听
-     */
-    fun registerPermission(
-        activity: ComponentActivity,
-        block: (MutableMap<String, Boolean>) -> Unit
-    ): ActivityResultLauncher<Array<String>> {
-        return registerMorePermission(activity, block)
+    fun with(
+        activity: FragmentActivity, permissions: Array<String>,
+        block: (Boolean) -> Unit
+    ) {
+        registerFragment(activity, permissions, block)
     }
 
-    /**
-     * fragment注册permission加载器，必须在onViewCreated方法调用
-     */
-    fun registerPermission(
-        fragment: Fragment,
-        block: (MutableMap<String, Boolean>) -> Unit
-    ): ActivityResultLauncher<Array<String>> {
-        return registerMorePermission(fragment, block)
-    }
-
-    /**
-     * 开始请求单个权限
-     */
-    fun launchPermission(launcher: ActivityResultLauncher<Array<String>>, permission: String) {
-        launchMorePermission(launcher, arrayOf(permission))
-    }
-
-    /**
-     * activity注册多个permission加载器，必须在onCreate方法调用
-     */
-    fun registerMorePermission(
-        activity: ComponentActivity,
-        block: (MutableMap<String, Boolean>) -> Unit
-    ): ActivityResultLauncher<Array<String>> {
-        return activity.requestMorePermission {
-            block(it)
+    fun with(
+        fragment: Fragment, permissions: Array<String>,
+        block: (Boolean) -> Unit
+    ) {
+        if (fragment.lifecycle.currentState != Lifecycle.State.DESTROYED && fragment.activity != null) {
+            registerFragment(fragment.requireActivity(), permissions, block)
         }
+
     }
 
-    /**
-     * fragment注册多个permission加载器，必须在onViewCreated方法调用
-     */
-    fun registerMorePermission(
-        fragment: Fragment,
-        block: (MutableMap<String, Boolean>) -> Unit
-    ): ActivityResultLauncher<Array<String>> {
-        return fragment.requestMorePermission {
-            block(it)
+
+    private fun registerFragment(
+        activity: FragmentActivity,
+        permissions: Array<String>,
+        block: (Boolean) -> Unit
+    ) {
+        if (activity.lifecycle.currentState == Lifecycle.State.DESTROYED) {
+            return
         }
+        val manager = activity.supportFragmentManager
+        var fragment = manager.findFragmentByTag(NonePermissionFragment.TAG)
+        if (fragment == null) {
+            fragment = fragmentMap[activity::class.java.simpleName]
+            if (fragment == null) {
+                fragment = NonePermissionFragment(permissionLiveData)
+                fragmentMap[activity::class.java.simpleName] = fragment
+
+                manager.beginTransaction().add(fragment, NonePermissionFragment.TAG)
+                    .commitAllowingStateLoss()
+                permissionLiveData.observe(activity, Observer { map ->
+                    var result = true
+                    map.forEach { item ->
+                        if (!item.value) {
+                            result = false
+                        }
+                    }
+                    block(result)
+                })
+            }
+        }
+        observable(activity, permissions)
     }
 
-    /**
-     * 开始请求多个权限
-     */
-    fun launchMorePermission(
-        launcher: ActivityResultLauncher<Array<String>>,
+    private fun observable(
+        activity: FragmentActivity,
         permissions: Array<String>
     ) {
-        launcher.launch(permissions)
+
+        val fragment = fragmentMap[activity::class.java.simpleName]
+        if (activity.supportFragmentManager.findFragmentByTag(NonePermissionFragment.TAG) == null) {
+            fragment?.lifecycle?.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+                fun onStart() {
+                    fragment.requestPermission(permissions)
+                }
+
+                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                fun onDestroy() {
+                    fragmentMap.remove(activity::class.java.simpleName)
+                }
+            })
+        } else {
+            fragment?.requestPermission(permissions)
+        }
     }
+
+
 }
 
 
-private inline fun ComponentActivity.requestPermission(crossinline block: (Boolean) -> Unit): ActivityResultLauncher<String> {
-    return registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        block(it)
-    }
-
-}
-
-
-private inline fun ComponentActivity.requestMorePermission(
-    crossinline block: (MutableMap<String, Boolean>) -> Unit
-): ActivityResultLauncher<Array<String>> {
-    return registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-        block(it)
-    }
-
-}
-
-
-private inline fun Fragment.requestPermission(
-    crossinline block: (Boolean) -> Unit
-): ActivityResultLauncher<String> {
-    return registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        block(it)
-    }
-
-}
-
-private inline fun Fragment.requestMorePermission(
-    crossinline block: (MutableMap<String, Boolean>) -> Unit
-): ActivityResultLauncher<Array<String>> {
-    return registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-        block(it)
-    }
-}
